@@ -1023,3 +1023,157 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Timeline Components */
+.timeline-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.timeline-section h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-family: var(--font-terminal);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  border-left: 2px solid var(--border);
+  padding-left: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.5rem - 6px);
+  top: 0.25rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--background);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover::before {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.timeline-item:hover {
+  transform: translateX(5px);
+}
+
+.timeline-item .time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.timeline-item .org {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item .desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* Certificate Preview Modal */
+.cert-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cert-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 85%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 0 40px var(--primary-glow);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cert-modal.active .cert-modal-content {
+  transform: scale(1);
+}
+
+.cert-modal-img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cert-modal-close {
+  position: absolute;
+  top: -45px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 2rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.3s ease;
+}
+
+.cert-modal-close:hover {
+  color: #ff3b30;
+  text-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
+}
+
+/* Certificate item visual adjustment */
+.cert-btn-group {
+  display: flex;
+  gap: 0.5rem;
+}

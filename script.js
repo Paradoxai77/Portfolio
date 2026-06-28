@@ -180,4 +180,42 @@ document.addEventListener('DOMContentLoaded', () => {
 			heroRef.style.transform = `rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
 		});
 	}
+
+	// 8. Certificate Modal Image Viewer
+	const certModal = document.getElementById('certModal');
+	const certModalImg = document.getElementById('certModalImg');
+	const certImageBtns = document.querySelectorAll('.cert-image-btn');
+
+	if (certModal && certModalImg) {
+		certImageBtns.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const imgPath = btn.getAttribute('data-img');
+				if (imgPath) {
+					certModalImg.src = imgPath;
+					certModal.classList.add('active');
+				}
+			});
+		});
+
+		window.closeCertModal = function() {
+			certModal.classList.remove('active');
+			setTimeout(() => {
+				certModalImg.src = "";
+			}, 300);
+		};
+
+		// Close modal on background click
+		certModal.addEventListener('click', (e) => {
+			if (e.target === certModal) {
+				closeCertModal();
+			}
+		});
+
+		// Close modal on Escape key
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && certModal.classList.contains('active')) {
+				closeCertModal();
+			}
+		});
+	}
 });
