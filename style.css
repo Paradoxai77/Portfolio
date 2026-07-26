@@ -1234,3 +1234,220 @@ footer {
   display: flex;
   gap: 0.5rem;
 }
+
+/* ==========================================================================
+   DRIBBLE-INSPIRED ADVANCED ANIMATION MODULES
+   ========================================================================== */
+
+/* 1. Custom Glowing Magnetic Cursor */
+.custom-cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--primary);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+
+.cursor-follower {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(0, 255, 157, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
+}
+
+body.cursor-hover .custom-cursor {
+  transform: translate(-50%, -50%) scale(1.6);
+  background: #ffffff;
+  box-shadow: 0 0 15px #ffffff;
+}
+
+body.cursor-hover .cursor-follower {
+  transform: translate(-50%, -50%) scale(1.6);
+  border-color: var(--primary);
+  background: rgba(0, 255, 157, 0.08);
+  box-shadow: 0 0 25px var(--primary-glow);
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor, .cursor-follower {
+    display: none !important;
+  }
+}
+
+/* 2. Pulsing Availability Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem;
+  background: rgba(13, 13, 13, 0.85);
+  border: 1px solid rgba(0, 255, 157, 0.35);
+  border-radius: 50px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-bright);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.12);
+  transition: all 0.3s ease;
+  animation: floatBadge 4s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+.status-badge:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 22px var(--primary-glow);
+  transform: translateY(-3px);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-dot::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 255, 157, 0.5);
+  animation: pulseDot 2s ease-out infinite;
+}
+
+@keyframes pulseDot {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes floatBadge {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* 3. Background Parallax Watermarks */
+.watermark-bg {
+  position: absolute;
+  font-family: var(--font-terminal);
+  font-size: clamp(4rem, 14vw, 11rem);
+  color: rgba(255, 255, 255, 0.025);
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  letter-spacing: 6px;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.1s ease-out;
+}
+
+/* 4. Button & Link Arrow Physics */
+.btn i, .resume-btn i, .social-item i, .social-icon {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn:hover i, .resume-btn:hover i {
+  transform: translate(4px, -4px) rotate(45deg);
+}
+
+/* 5. Interactive Expandable Accordion Modules */
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.accordion-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.accordion-item:hover, .accordion-item.active {
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(0, 255, 157, 0.12);
+}
+
+.accordion-header {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: var(--panel);
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: rgba(0, 255, 157, 0.04);
+}
+
+.accordion-header h3 {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-family: var(--font-mono);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.accordion-icon {
+  font-size: 1.2rem;
+  color: var(--primary);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 2rem;
+  background: var(--surface);
+}
+
+.accordion-item.active .accordion-body {
+  max-height: 600px;
+  padding: 1.5rem 2rem;
+}

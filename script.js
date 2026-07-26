@@ -239,4 +239,90 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+
+	// 9. Custom Glowing Magnetic Cursor Logic
+	const cursorDot = document.createElement('div');
+	cursorDot.className = 'custom-cursor';
+	const cursorFollower = document.createElement('div');
+	cursorFollower.className = 'cursor-follower';
+	document.body.appendChild(cursorDot);
+	document.body.appendChild(cursorFollower);
+
+	let mouseX = 0, mouseY = 0;
+	let followerX = 0, followerY = 0;
+
+	document.addEventListener('mousemove', (e) => {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		cursorDot.style.left = `${mouseX}px`;
+		cursorDot.style.top = `${mouseY}px`;
+	});
+
+	function animateCursor() {
+		followerX += (mouseX - followerX) * 0.15;
+		followerY += (mouseY - followerY) * 0.15;
+		cursorFollower.style.left = `${followerX}px`;
+		cursorFollower.style.top = `${followerY}px`;
+		requestAnimationFrame(animateCursor);
+	}
+	animateCursor();
+
+	// Add cursor hover effect to interactive elements
+	const attachCursorHover = () => {
+		const interactiveSelectors = 'a, button, input, textarea, .project-card, .skill-card, .achievement-card, .social-item, .cert-item, .accordion-header, .status-badge';
+		document.querySelectorAll(interactiveSelectors).forEach(el => {
+			el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+			el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+		});
+	};
+	attachCursorHover();
+
+	// 10. Interactive Expandable Accordion Interactivity
+	document.querySelectorAll('.accordion-header').forEach(header => {
+		header.addEventListener('click', () => {
+			const item = header.parentElement;
+			const isActive = item.classList.contains('active');
+			
+			// Close other items in the same container
+			const parentContainer = item.parentElement;
+			if (parentContainer) {
+				parentContainer.querySelectorAll('.accordion-item').forEach(child => child.classList.remove('active'));
+			}
+			
+			if (!isActive) {
+				item.classList.add('active');
+			}
+		});
+	});
+
+	// 11. Background Watermark Parallax Effect
+	const watermarks = document.querySelectorAll('.watermark-bg');
+	if (watermarks.length > 0) {
+		window.addEventListener('scroll', () => {
+			const scrolled = window.pageYOffset;
+			watermarks.forEach(watermark => {
+				const speed = 0.12;
+				watermark.style.transform = `translateX(-50%) translateY(${scrolled * speed}px)`;
+			});
+		});
+	}
+
+	// 12. 3D Card Tilt Physics
+	const tiltCards = document.querySelectorAll('.project-card, .skill-card, .achievement-card');
+	tiltCards.forEach(card => {
+		card.addEventListener('mousemove', (e) => {
+			const rect = card.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			const centerX = rect.width / 2;
+			const centerY = rect.height / 2;
+			const rotateX = ((y - centerY) / centerY) * -10;
+			const rotateY = ((x - centerX) / centerX) * 10;
+			card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+		});
+
+		card.addEventListener('mouseleave', () => {
+			card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+		});
+	});
 });
