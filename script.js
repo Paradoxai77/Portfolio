@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	// 5. Active Nav Highlight on Scroll
+	// 5. Active Nav Highlight on Scroll (for single-page internal section anchors)
 	window.addEventListener('scroll', () => {
 		let current = "";
 		const sections = document.querySelectorAll('section');
@@ -135,13 +135,34 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 
-		document.querySelectorAll('nav a').forEach(a => {
-			a.classList.remove('active');
-			if (a.getAttribute('href') === `#${current}`) {
-				a.classList.add('active');
-			}
-		});
+		if (current) {
+			document.querySelectorAll('nav a').forEach(a => {
+				const href = a.getAttribute('href');
+				if (href && href.startsWith('#')) {
+					a.classList.remove('active');
+					if (href === `#${current}`) {
+						a.classList.add('active');
+					}
+				}
+			});
+		}
 	});
+
+	// 5b. Mobile Menu Toggle Logic
+	const navToggle = document.getElementById('navToggle');
+	const navMenu = document.getElementById('navMenu');
+	if (navToggle && navMenu) {
+		navToggle.addEventListener('click', () => {
+			navMenu.classList.toggle('nav-open');
+		});
+
+		// Close mobile menu when a nav link is clicked
+		document.querySelectorAll('nav a').forEach(link => {
+			link.addEventListener('click', () => {
+				navMenu.classList.remove('nav-open');
+			});
+		});
+	}
 
 	// 6. Rotating Eyes Logic
 	const eyes = document.querySelectorAll('.eye');

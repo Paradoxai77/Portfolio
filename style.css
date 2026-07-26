@@ -1003,6 +1003,24 @@ footer {
   font-size: 0.8rem;
 }
 
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 1001;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+  background: var(--primary-glow);
+  border-color: var(--primary);
+}
+
 @media (max-width: 968px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -1013,8 +1031,40 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .nav-toggle {
+    display: block;
+  }
+
+  nav {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 0;
+    transform: translateY(-150%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+  }
+
+  nav.nav-open {
+    transform: translateY(0);
+  }
+
   nav ul {
-    display: none;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .social-links {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1033,7 +1083,7 @@ footer {
 /* Timeline Components */
 .timeline-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 3rem;
   margin-top: 4rem;
 }
@@ -1119,7 +1169,7 @@ footer {
   height: 100vh;
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(10px);
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
