@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	// 1. Typing Effect for Hero
-	const words = ["Web Developer.", "AI Explorer.", "Problem Solver.", "AR/VR Enthusiast."];
+	const words = ["Web Developer.", "Patent Holder.", "SOC Researcher.", "AI & AR/VR Explorer.", "Problem Solver."];
 	let i = 0;
 	let j = 0;
 	let currentWord = "";
