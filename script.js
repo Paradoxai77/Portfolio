@@ -240,42 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	// 9. Custom Glowing Magnetic Cursor Logic
-	const cursorDot = document.createElement('div');
-	cursorDot.className = 'custom-cursor';
-	const cursorFollower = document.createElement('div');
-	cursorFollower.className = 'cursor-follower';
-	document.body.appendChild(cursorDot);
-	document.body.appendChild(cursorFollower);
-
-	let mouseX = 0, mouseY = 0;
-	let followerX = 0, followerY = 0;
-
-	document.addEventListener('mousemove', (e) => {
-		mouseX = e.clientX;
-		mouseY = e.clientY;
-		cursorDot.style.left = `${mouseX}px`;
-		cursorDot.style.top = `${mouseY}px`;
-	});
-
-	function animateCursor() {
-		followerX += (mouseX - followerX) * 0.15;
-		followerY += (mouseY - followerY) * 0.15;
-		cursorFollower.style.left = `${followerX}px`;
-		cursorFollower.style.top = `${followerY}px`;
-		requestAnimationFrame(animateCursor);
-	}
-	animateCursor();
-
-	// Add cursor hover effect to interactive elements
-	const attachCursorHover = () => {
-		const interactiveSelectors = 'a, button, input, textarea, .project-card, .skill-card, .achievement-card, .social-item, .cert-item, .accordion-header, .status-badge';
-		document.querySelectorAll(interactiveSelectors).forEach(el => {
-			el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-			el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-		});
-	};
-	attachCursorHover();
 
 	// 10. Interactive Expandable Accordion Interactivity
 	document.querySelectorAll('.accordion-header').forEach(header => {
